@@ -1,0 +1,24 @@
+{
+  "destination": {
+    "type": "local",
+    "local_dir": "downloads",
+    "gcs_bucket": "",
+    "gcs_prefix": "",
+    "s3_bucket": "",
+    "s3_prefix": ""
+  },
+  "credentials": {
+    "kaggle": {
+      "username": "thepank25@gmail.com",
+      "key": "KGAT_bf6367d640067ee9ec21ef2fd0446e23"
+    }
+  },
+  "source_systems": {
+    "kaggle": [
+      {
+        "name": "supermarket_sales",
+        "url": "https://www.kaggle.com/datasets/lovishbansal123/sales-of-a-supermarket"
+      }
+    ]
+  }
+}

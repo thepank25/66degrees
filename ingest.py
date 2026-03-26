@@ -1,6 +1,6 @@
 import sqlite3
-
-def ingest_filesystem(db_path, data):
+import pandas as pd
+def ingest_filesystem(db_path, data_path):
     # Connect to the SQLite database
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
@@ -28,6 +28,9 @@ def ingest_filesystem(db_path, data):
     ''')
 
     # Insert data into the original_data table
+    df = pd.read_csv(data_path)
+    data = df.values.tolist()
+
     cursor.executemany('''
         INSERT INTO original_data 
         ("Invoice ID", "Branch", "City", "Customer type", "Gender", "Product line", 
@@ -39,3 +42,6 @@ def ingest_filesystem(db_path, data):
     # Commit changes and close the connection
     conn.commit()
     conn.close()
+    
+
+    return True

@@ -2,10 +2,11 @@
 Create table "Fact_Sales" as 
 Select 
 "invoice_id",
+"branch"
 "quantity",
 "tax_5_percent",
 "total",
-"date", 
+"date",
 "time", 
 "payment",
 "cogs",

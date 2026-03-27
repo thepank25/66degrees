@@ -60,3 +60,8 @@ for table in gold_layer:
     transform_data(db_path="./data.db", table_name=table, stage='gold')
 
 
+# Reporting
+reporting_layer = ["sales_report"]
+for table in reporting_layer:
+    transform_data(db_path="./data.db", table_name=table, stage='reporting')
+

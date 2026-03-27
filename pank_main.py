@@ -45,6 +45,22 @@ def transform_data(db_path, table_name, stage):
     conn.close()
     return transformed_data
 
+
+def report_data(db_path, report_name):
+    dest_path = f"data/report_outputs/{report_name}.csv"
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+
+    with open(f'sqls/reports/{report_name}.sql', 'r') as f:
+        report_qry = f.read()
+    report_data = cursor.execute(report_qry)
+    
+    df = pd.DataFrame(report_data.fetchall(), columns=[desc[0] for desc in cursor.description])
+    df.to_csv(dest_path, index=False, mode='w')
+    conn.commit()
+    conn.close()
+    return 
+
 raw_data_path = get_data(dataset, path)
 raw_data = load_data_from_csv(raw_data_path, "raw_data")
 
@@ -61,7 +77,7 @@ for table in gold_layer:
 
 
 # Reporting
-reporting_layer = ["sales_report"]
-for table in reporting_layer:
-    transform_data(db_path="./data.db", table_name=table, stage='reporting')
+reporting_layer = ["sales_report","window_function"]
+for report in reporting_layer:
+    report_data(db_path="./data.db", report_name=report)
 

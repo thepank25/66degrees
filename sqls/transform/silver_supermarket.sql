@@ -1,4 +1,3 @@
-
 Insert into silver_supermarket
 SELECT 
     CAST("Invoice ID" AS TEXT) AS "invoice_id",
@@ -11,15 +10,17 @@ SELECT
     CAST("Quantity" AS INTEGER) AS "quantity",
     CAST("Tax 5%" AS REAL) AS "tax_5_percent",
     CAST("Total" AS REAL) AS "total",    
-    '20' || substr("date", -2) || '/' ||
-    case 
-        when length(substr("date", instr("date", '/') + 1, instr(substr("date", instr("date", '/') + 1), '/') - 1)) = 1 then '0' || substr("date", instr("date", '/') + 1, instr(substr("date", instr("date", '/') + 1), '/') - 1)
-        else substr("date", instr("date", '/') + 1, instr(substr("date", instr("date", '/') + 1), '/') - 1)
-    end || '/' ||
-    case 
-        when instr("date", '/') = 2 then '0' || substr("date", 1, instr("date", '/') - 1)
-        else  substr("date", 1, instr("date", '/') - 1)
-    end AS "date",
+
+    date(
+        substr("date", instr("date", '/') + instr(substr("date", instr("date", '/') + 1), '/') + 1)  -- year
+        || '-' ||
+        printf('%02d', CAST(substr("date", 1, instr("date", '/') - 1) AS INTEGER))  -- month
+        || '-' ||
+        printf('%02d', CAST(
+            substr("date", instr("date", '/') + 1,
+            instr(substr("date", instr("date", '/') + 1), '/') - 1)
+        AS TEXT))  -- day
+    ) AS "date",
     CAST("Time" AS TEXT) AS "time",
     CAST("Payment" AS TEXT) AS "payment",
     CAST("cogs" AS REAL) AS "cogs",

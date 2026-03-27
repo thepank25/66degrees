@@ -2,7 +2,7 @@
 Create table "Fact_Sales" as 
 Select 
 "invoice_id",
-"branch"
+"branch",
 "quantity",
 "tax_5_percent",
 "total",
@@ -10,10 +10,10 @@ Select
 "time", 
 "payment",
 "cogs",
-"gross_income"
+"gross_income",
 -- customer info
 "customer_type",
-"gender"
+"gender",
 --product info 
 "product_line",
 "unit_price",
